@@ -7,7 +7,7 @@ import {
   ArrowLeft,
   CheckCircle2,
   MousePointerClick,
-  Keyboard,
+  Keyboard
 } from 'lucide-react';
 import { Link } from '@/core/i18n/routing';
 import clsx from 'clsx';
@@ -47,14 +47,14 @@ const GAME_MODES: {
     id: 'Pick',
     title: 'Pick',
     description: 'Pick the correct answer from multiple options',
-    icon: MousePointerClick,
+    icon: MousePointerClick
   },
   {
     id: 'Type',
     title: 'Type',
     description: 'Type the correct answer',
-    icon: Keyboard,
-  },
+    icon: Keyboard
+  }
 ];
 
 const DURATION_OPTIONS = [30, 60, 90, 120, 180];
@@ -72,17 +72,14 @@ export default function PreGameScreen({
   showGoalTimers,
   setShowGoalTimers,
   goalTimers,
-  onStart,
+  onStart
 }: PreGameScreenProps) {
   const { playClick } = useClick();
 
   return (
     <div className="min-h-[100dvh] flex flex-col lg:flex-row items-start justify-center p-4 gap-6">
       <div className="max-w-md w-full lg:max-w-lg text-center space-y-5">
-        <Timer
-          size={64}
-          className="mx-auto text-[var(--main-color)]"
-        />
+        <Timer size={64} className="mx-auto text-[var(--main-color)]" />
         <h1 className="text-2xl font-bold text-[var(--secondary-color)]">
           Blitz
         </h1>
@@ -114,10 +111,7 @@ export default function PreGameScreen({
 
         {/* Action Buttons */}
         <div className="flex flex-row items-center justify-center gap-2 md:gap-4 w-full">
-          <Link
-            href={`/${dojoType}`}
-            className="w-1/2"
-          >
+          <Link href={`/${dojoType}`} className="w-1/2">
             <button
               className={clsx(
                 'w-full h-12 px-2 sm:px-6 flex flex-row justify-center items-center gap-2',
@@ -143,10 +137,7 @@ export default function PreGameScreen({
             )}
           >
             <span className="whitespace-nowrap">Start</span>
-            <Play
-              size={20}
-              className="fill-current"
-            />
+            <Play size={20} className="fill-current" />
           </button>
         </div>
       </div>
@@ -188,7 +179,7 @@ function SelectedLevelsCard({
   dojoType,
   dojoLabel,
   itemsCount,
-  selectedSets,
+  selectedSets
 }: {
   dojoType: 'kana' | 'kanji' | 'vocabulary';
   dojoLabel: string;
@@ -226,7 +217,9 @@ function SelectedLevelsCard({
       })
       .map(set => {
         const cleaned = set.replace('Set ', '').replace('Level ', '');
-        return dojoType === 'kana' ? cleaned : `Level ${cleaned}`;
+        return dojoType === 'kana'
+          ? cleaned
+          : `${cleaned.includes('-') ? 'Levels' : 'Level'} ${cleaned}`;
       })
       .join(', ');
   };
@@ -257,7 +250,7 @@ function SelectedLevelsCard({
 function GameModeSelector({
   gameMode,
   setGameMode,
-  pickModeSupported,
+  pickModeSupported
 }: {
   gameMode: BlitzGameMode;
   setGameMode: (mode: BlitzGameMode) => void;
@@ -342,7 +335,7 @@ function GameModeSelector({
 
 function DurationSelector({
   challengeDuration,
-  setChallengeDuration,
+  setChallengeDuration
 }: {
   challengeDuration: number;
   setChallengeDuration: (duration: number) => void;

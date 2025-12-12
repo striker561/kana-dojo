@@ -503,7 +503,7 @@ function SelectedLevelsCard({
     return sets.length
       ? formatLevelsAsRanges(sets)
           .split(', ')
-          .map(r => `Level ${r}`)
+          .map(r => `${r.includes('-') ? 'Levels' : 'Level'} ${r}`)
           .join(', ')
       : 'None';
   };

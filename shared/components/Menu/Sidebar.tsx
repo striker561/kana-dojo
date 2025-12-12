@@ -158,7 +158,7 @@ const Sidebar = () => {
         <span className="max-lg:hidden">Preferences</span>
       </Link>
 
-      <div className="max-lg:hidden w-full mt-3 px-4 text-xs uppercase  text-[var(--secondary-color)] opacity-70">
+      <div className="max-lg:hidden w-full mt-3 px-4 text-xs uppercase  text-[var(--main-color)] opacity-70">
         Experiments
       </div>
       <Link
