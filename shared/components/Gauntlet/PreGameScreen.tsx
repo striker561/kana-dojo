@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import clsx from 'clsx';
 import { Link, useRouter } from '@/core/i18n/routing';
-import { usePathname } from 'next/navigation';
 import {
   Swords,
   ArrowLeft,
@@ -36,7 +35,7 @@ interface PreGameScreenProps {
   repetitions: RepetitionCount;
   setRepetitions: (reps: RepetitionCount) => void;
   pickModeSupported: boolean;
-  onStart: () => void;
+  onStart?: () => void; // Kept for backwards compatibility but no longer used
   onCancel?: () => void; // Optional callback to handle back/cancel in modal mode
 }
 
@@ -58,15 +57,10 @@ export default function PreGameScreen({
   repetitions,
   setRepetitions,
   pickModeSupported,
-  onStart,
   onCancel
 }: PreGameScreenProps) {
   const { playClick } = useClick();
   const router = useRouter();
-  const pathname = usePathname();
-
-  // Check if we're on the gauntlet route
-  const isGauntletRoute = pathname?.includes('/gauntlet') ?? false;
 
   // Handle back button - close modal if in modal mode, navigate if on route
   const handleBack = () => {
@@ -284,8 +278,8 @@ export default function PreGameScreen({
                   }}
                   colorScheme={repetitions === rep ? 'main' : 'secondary'}
                   borderColorScheme={repetitions === rep ? 'main' : 'secondary'}
-                  borderBottomThickness={6}
-                  borderRadius='2xl'
+                  borderBottomThickness={8}
+                  borderRadius='3xl'
                   className={clsx(
                     'w-auto px-4 py-2',
                     repetitions !== rep && 'opacity-60'
@@ -313,31 +307,12 @@ export default function PreGameScreen({
               <span className='whitespace-nowrap'>Back</span>
             </button>
 
-            {/* Start button: Navigate to route if not already there, otherwise start game */}
-            {!isGauntletRoute ? (
-              <Link href={`/${dojoType}/gauntlet`} className='w-1/2'>
-                <button
-                  onClick={() => playClick()}
-                  className={clsx(
-                    'flex h-12 w-full flex-row items-center justify-center gap-2 px-2 sm:px-6',
-                    'rounded-2xl transition-colors duration-200',
-                    'border-b-6 font-medium shadow-sm',
-                    'hover:cursor-pointer',
-                    'border-[var(--main-color-accent)] bg-[var(--main-color)] text-[var(--background-color)]'
-                  )}
-                >
-                  <span className='whitespace-nowrap'>Start Gauntlet</span>
-                  <Play className='fill-current' size={20} />
-                </button>
-              </Link>
-            ) : (
+            {/* Start button: Navigate to gauntlet route to start the game */}
+            <Link href={`/${dojoType}/gauntlet`} className='w-1/2'>
               <button
-                onClick={() => {
-                  playClick();
-                  onStart();
-                }}
+                onClick={() => playClick()}
                 className={clsx(
-                  'flex h-12 w-1/2 flex-row items-center justify-center gap-2 px-2 sm:px-6',
+                  'flex h-12 w-full flex-row items-center justify-center gap-2 px-2 sm:px-6',
                   'rounded-2xl transition-colors duration-200',
                   'border-b-6 font-medium shadow-sm',
                   'hover:cursor-pointer',
@@ -347,7 +322,7 @@ export default function PreGameScreen({
                 <span className='whitespace-nowrap'>Start Gauntlet</span>
                 <Play className='fill-current' size={20} />
               </button>
-            )}
+            </Link>
           </div>
         </div>
       </div>
