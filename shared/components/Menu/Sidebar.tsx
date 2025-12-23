@@ -3,6 +3,7 @@ import { Link, useRouter, usePathname } from '@/core/i18n/routing';
 import {
   BookOpen,
   Brain,
+  CircleDashed,
   CloudRain,
   House,
   Keyboard,
@@ -10,7 +11,6 @@ import {
   Leaf,
   Sparkles,
   Star,
-  Trophy,
   Volume2,
   Wind
 } from 'lucide-react';
@@ -109,7 +109,7 @@ const Sidebar = () => {
         )}
         onClick={playClick}
       >
-        <Trophy />
+        <CircleDashed />
         <span className='max-lg:hidden'>Progress</span>
       </Link>
       <Link
